@@ -60,24 +60,43 @@ app.use("/api/*", shopify.validateAuthenticatedSession());
 
 app.use(express.json());
 
-app.post('/api/update-theme', async (req, res) => {
+app.post("/api/update-theme", async (req, res) => {
   try {
     const {
-      title, bgColor, fontColor, fontSize, fontFamily, textAlign, textTransform,
-      fontWeight, padding, borderColor, borderWidth, borderStyle, boxShadow,
-      letterSpacing, lineHeight, textDecoration, isGradient, gradientColor
+      title,
+      bgColor,
+      fontColor,
+      fontSize,
+      fontFamily,
+      textAlign,
+      textTransform,
+      fontWeight,
+      padding,
+      borderColor,
+      borderWidth,
+      borderStyle,
+      boxShadow,
+      letterSpacing,
+      lineHeight,
+      textDecoration,
+      isGradient,
+      gradientColor,
     } = req.body;
 
     const themeId = await getActiveThemeId();
 
     if (!themeId) {
-      return res.status(404).json({ success: false, message: 'Active theme not found' });
+      return res
+        .status(404)
+        .json({ success: false, message: "Active theme not found" });
     }
 
     // Create your template string based on the received settings
     const templateValue = `
       <div style="
-        background: ${isGradient ? `linear-gradient(${bgColor}, ${gradientColor})` : bgColor};
+        background: ${
+          isGradient ? `linear-gradient(${bgColor}, ${gradientColor})` : bgColor
+        };
         color: ${fontColor};
         font-size: ${fontSize};
         font-family: ${fontFamily};
@@ -86,7 +105,7 @@ app.post('/api/update-theme', async (req, res) => {
         font-weight: ${fontWeight};
         padding: ${padding};
         border: ${borderWidth} ${borderStyle} ${borderColor};
-        box-shadow: ${boxShadow === 'none' ? 'none' : boxShadow};
+        box-shadow: ${boxShadow === "none" ? "none" : boxShadow};
         letter-spacing: ${letterSpacing};
         line-height: ${lineHeight};
         text-decoration: ${textDecoration};
@@ -99,11 +118,10 @@ app.post('/api/update-theme', async (req, res) => {
 
     res.json({ success: true });
   } catch (error) {
-    console.error('Error updating theme:', error);
-    res.status(500).json({ success: false, message: 'Failed to update theme' });
+    console.error("Error updating theme:", error);
+    res.status(500).json({ success: false, message: "Failed to update theme" });
   }
 });
-
 
 app.use(express.json());
 

@@ -48,7 +48,7 @@ const Shippingbar = () => {
   const handleSave = async () => {
     try {
       // Send the current settings to the backend API
-      const response = await axios.post('/api/update-theme', {
+      const response = await axios.post("/api/update-theme", {
         title,
         bgColor,
         fontColor,
@@ -70,13 +70,13 @@ const Shippingbar = () => {
       });
 
       if (response.data.success) {
-        alert('Settings updated successfully');
+        alert("Settings updated successfully");
       } else {
-        alert('Failed to update settings');
+        alert("Failed to update settings");
       }
     } catch (error) {
-      console.error('Error updating theme:', error);
-      alert('Error updating theme');
+      console.error("Error updating theme:", error);
+      alert("Error updating theme");
     }
   };
   return (
@@ -523,7 +523,9 @@ const Shippingbar = () => {
                         </button>
                       </div>
                       <div className="col-lg-1">
-                        <button className="btn btn-info" onClick={handleSave}>Save</button>
+                        <button className="btn btn-info" onClick={handleSave}>
+                          Save
+                        </button>
                       </div>
                     </div>
                   </div>
