@@ -45,7 +45,40 @@ const Shippingbar = () => {
     setGradientColor("#ffffff");
     setPreview(false);
   };
+  const handleSave = async () => {
+    try {
+      // Send the current settings to the backend API
+      const response = await axios.post('/api/update-theme', {
+        title,
+        bgColor,
+        fontColor,
+        fontSize,
+        fontFamily,
+        textAlign,
+        textTransform,
+        fontWeight,
+        padding,
+        borderColor,
+        borderWidth,
+        borderStyle,
+        boxShadow,
+        letterSpacing,
+        lineHeight,
+        textDecoration,
+        isGradient,
+        gradientColor,
+      });
 
+      if (response.data.success) {
+        alert('Settings updated successfully');
+      } else {
+        alert('Failed to update settings');
+      }
+    } catch (error) {
+      console.error('Error updating theme:', error);
+      alert('Error updating theme');
+    }
+  };
   return (
     <>
       <div className="nav-container">
@@ -490,7 +523,7 @@ const Shippingbar = () => {
                         </button>
                       </div>
                       <div className="col-lg-1">
-                        <button className="btn btn-info">Save</button>
+                        <button className="btn btn-info" onClick={handleSave}>Save</button>
                       </div>
                     </div>
                   </div>

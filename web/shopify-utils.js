@@ -42,3 +42,4 @@ const updateThemeTemplate = async (themeId, session) => {
 };
 
 export { getActiveThemeId, updateThemeTemplate };
+
