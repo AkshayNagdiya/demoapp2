@@ -11,9 +11,6 @@
     "generate": "shopify app generate",
     "deploy": "shopify app deploy"
   },
-  "dependencies": {
-    "react-phone-number-input": "^3.4.5"
-  },
   "author": "Hp",
   "private": true,
   "workspaces": [
