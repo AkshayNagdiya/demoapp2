@@ -7,6 +7,9 @@ import serveStatic from "serve-static";
 import shopify from "./shopify.js";
 import productCreator from "./product-creator.js";
 import PrivacyWebhookHandlers from "./privacy.js";
+import { getActiveThemeId, updateThemeTemplate } from "./shopify-utils.js";
+import dotenv from "dotenv";
+dotenv.config();
 
 const PORT = parseInt(
   process.env.BACKEND_PORT || process.env.PORT || "3000",
@@ -36,6 +39,24 @@ app.post(
 // also add a proxy rule for them in web/frontend/vite.config.js
 
 app.use("/api/*", shopify.validateAuthenticatedSession());
+
+// Route to fetch and update Shopify theme
+app.post("/api/update-theme", async (req, res) => {
+  const session = res.locals.shopify.session; // Retrieve session from Shopify middleware
+
+  try {
+    const themeId = await getActiveThemeId(session);
+    if (themeId) {
+      await updateThemeTemplate(themeId, session);
+      res.status(200).send({ success: true });
+    } else {
+      res.status(404).send({ error: "No active theme found" });
+    }
+  } catch (error) {
+    console.error("Failed to update theme:", error);
+    res.status(500).send({ success: false, error: error.message });
+  }
+});
 
 app.use(express.json());
 

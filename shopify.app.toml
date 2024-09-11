@@ -3,7 +3,7 @@
 client_id = "431ea1628c2012538dad6aa6701a49bc"
 name = "demoapp2"
 handle = "demoapp2-21"
-application_url = "https://unknown-conjunction-cassette-fascinating.trycloudflare.com"
+application_url = "https://appeal-strap-satellite-av.trycloudflare.com"
 embedded = true
 
 [build]
@@ -13,13 +13,13 @@ include_config_on_deploy = true
 
 [access_scopes]
 # Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
-scopes = "write_products"
+scopes = "read_orders,read_products,write_products"
 
 [auth]
 redirect_urls = [
-  "https://unknown-conjunction-cassette-fascinating.trycloudflare.com/auth/callback",
-  "https://unknown-conjunction-cassette-fascinating.trycloudflare.com/auth/shopify/callback",
-  "https://unknown-conjunction-cassette-fascinating.trycloudflare.com/api/auth/callback"
+  "https://appeal-strap-satellite-av.trycloudflare.com/auth/callback",
+  "https://appeal-strap-satellite-av.trycloudflare.com/auth/shopify/callback",
+  "https://appeal-strap-satellite-av.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
