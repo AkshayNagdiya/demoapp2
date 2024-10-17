@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../pages/Shippingbar.css";
+import axios from "axios";
 
 const Shippingbar = () => {
   const [value, setValue] = useState();
@@ -45,40 +46,165 @@ const Shippingbar = () => {
     setGradientColor("#ffffff");
     setPreview(false);
   };
+  // const handleSave = async () => {
+  //   try {
+  //     // Send the current settings to the backend API
+  //     const response = await axios.post("/api/update-theme", {
+  //       title,
+  //       bgColor,
+  //       fontColor,
+  //       fontSize,
+  //       fontFamily,
+  //       textAlign,
+  //       textTransform,
+  //       fontWeight,
+  //       padding,
+  //       borderColor,
+  //       borderWidth,
+  //       borderStyle,
+  //       boxShadow,
+  //       letterSpacing,
+  //       lineHeight,
+  //       textDecoration,
+  //       isGradient,
+  //       gradientColor,
+  //     });
+  //     console.log(response.data);
+  //     if (response.data.success) {
+  //       alert("Settings updated successfully");
+  //     } else {
+  //       alert("Failed to update settings");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error updating theme:", error);
+  //     alert("Error updating theme");
+  //   }
+  // };
+
+  // const handleSave = async () => {
+  //   try {
+  //     // Prepare the settings to send to the backend API
+  //     const response = await axios.post(
+  //       "/api/update-theme",
+  //       {
+  //         title,
+  //         bgColor,
+  //         fontColor,
+  //         fontSize,
+  //         fontFamily,
+  //         textAlign,
+  //         textTransform,
+  //         fontWeight,
+  //         padding,
+  //         borderColor,
+  //         borderWidth,
+  //         borderStyle,
+  //         boxShadow,
+  //         letterSpacing,
+  //         lineHeight,
+  //         textDecoration,
+  //         isGradient,
+  //         gradientColor,
+  //       },
+  //       {
+  //         // Optionally, add headers if required
+  //         headers: {
+  //           Authorization: `Bearer ${yourAccessToken}`, // Ensure to pass your access token if needed
+  //         },
+  //       }
+  //     );
+
+  //     console.log(response.data);
+
+  //     if (response.data.success) {
+  //       alert("Settings updated successfully");
+  //     } else {
+  //       alert("Failed to update settings: " + response.data.message);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error updating theme:", error);
+
+  //     // Check if error response is available
+  //     if (error.response) {
+  //       // The request was made, but the server responded with a status code
+  //       alert(
+  //         "Error updating theme: " + error.response.data.message ||
+  //           "An unexpected error occurred"
+  //       );
+  //     } else if (error.request) {
+  //       // The request was made but no response was received
+  //       alert("No response received from the server");
+  //     } else {
+  //       // Something happened in setting up the request
+  //       alert("Error: " + error.message);
+  //     }
+  //   }
+  // };
+
+  const accessToken = async (shop, code) => {
+    const response = await axios.post(
+      `https://${shop}/admin/oauth/access_token`,
+      {
+        client_id: YOUR_API_KEY,
+        client_secret: YOUR_API_SECRET,
+        code: code,
+      }
+    );
+
+    return response.data.access_token; // This is your access token
+  };
+
   const handleSave = async () => {
     try {
-      // Send the current settings to the backend API
-      const response = await axios.post("/api/update-theme", {
-        title,
-        bgColor,
-        fontColor,
-        fontSize,
-        fontFamily,
-        textAlign,
-        textTransform,
-        fontWeight,
-        padding,
-        borderColor,
-        borderWidth,
-        borderStyle,
-        boxShadow,
-        letterSpacing,
-        lineHeight,
-        textDecoration,
-        isGradient,
-        gradientColor,
-      });
+      if (!accessToken) {
+        alert("Access token is not available");
+        return;
+      }
 
+      const response = await axios.post(
+        "/api/update-theme",
+        {
+          title,
+          bgColor,
+          fontColor,
+          fontSize,
+          fontFamily,
+          textAlign,
+          textTransform,
+          fontWeight,
+          padding,
+          borderColor,
+          borderWidth,
+          borderStyle,
+          boxShadow,
+          letterSpacing,
+          lineHeight,
+          textDecoration,
+          isGradient,
+          gradientColor,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+
+      console.log(response.data);
       if (response.data.success) {
         alert("Settings updated successfully");
       } else {
-        alert("Failed to update settings");
+        alert("Failed to update settings: " + response.data.message);
       }
     } catch (error) {
       console.error("Error updating theme:", error);
-      alert("Error updating theme");
+      alert(
+        "Error updating theme: " +
+          (error.response?.data?.message || error.message)
+      );
     }
   };
+
   return (
     <>
       <div className="nav-container">
@@ -850,7 +976,6 @@ const Shippingbar = () => {
             </ul>
           </div>
         </div>
-
         <div
           className="tab-pane fade"
           id="pills-support"

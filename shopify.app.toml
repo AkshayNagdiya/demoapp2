@@ -3,7 +3,7 @@
 client_id = "431ea1628c2012538dad6aa6701a49bc"
 name = "demoapp2"
 handle = "demoapp2-21"
-application_url = "https://demoapp2-ok0f.onrender.com"
+application_url = "https://requirement-livecam-features-rides.trycloudflare.com"
 embedded = true
 
 [build]
@@ -17,9 +17,9 @@ scopes = "read_orders,read_products,write_products"
 
 [auth]
 redirect_urls = [
-  "https://demoapp2-ok0f.onrender.com/auth/callback",
-  "https://demoapp2-ok0f.onrender.com/auth/shopify/callback",
-  "https://demoapp2-ok0f.onrender.com/api/auth/callback"
+  "https://requirement-livecam-features-rides.trycloudflare.com/auth/callback",
+  "https://requirement-livecam-features-rides.trycloudflare.com/auth/shopify/callback",
+  "https://requirement-livecam-features-rides.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
